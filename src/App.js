@@ -3,11 +3,6 @@ import React, { useState } from 'react';
 import { FaTrash, FaTimes } from 'react-icons/fa'; // Import the FaTimes cancel icon
 import './App.css'; 
 import odysseyLogoImage from "../src/images/Odyssey-b-logo.png";
-import { BrowserRouter as Router, Route, Routes, Switch, Redirect } from 'react-router-dom';
-import Login from '../src/Login';
-import SignUp from '../src/SignUp';
-import SnackApp from '../src/MealList';
-import AuthService from '../src/AuthService';
 
 const App = () => {
   const [orders, setOrders] = useState([]);
@@ -52,50 +47,9 @@ const App = () => {
     setShowMoreMembers(!showMoreMembers);
   };
 
-
-
-    const [loggedIn, setLoggedIn] = useState(AuthService.isAuthenticated);
-  
-    const handleLogin = () => {
-      setLoggedIn(true);
-    };
-  
-    const handleSignUp = () => {
-      setLoggedIn(true);
-    };
-  
-    const handleLogout = async () => {
-      await AuthService.logout();
-      setLoggedIn(false);
-    };
-
   return (
     <div className="container">
-
-<Router>
-      <Switch>
-        <Route path="/login">
-          {!loggedIn ? <Login onLogin={handleLogin} /> : <Redirect to="/snack-app" />}
-        </Route>
-        <Route path="/sign-up">
-          {!loggedIn ? <SignUp onSignUp={handleSignUp} /> : <Redirect to="/snack-app" />}
-        </Route>
-        <Route path="/snack-app">
-          {loggedIn ? (
-            <div>
-              <button onClick={handleLogout}>Logout</button>
-              <SnackApp />
-            </div>
-          ) : (
-            <Redirect to="/login" />
-          )}
-        </Route>
-        <Redirect from="/" to="/login" />
-      </Switch>
-    </Router>
-
       {/* ODYSSEY LOGO */}
-
       <div className="row mt-3">
         <div className="col-md-6">
           <div className="company-info d-flex align-items-center">
