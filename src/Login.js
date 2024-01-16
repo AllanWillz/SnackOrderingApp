@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import './Login.css';
+import '../src/MealList';
+import './Login.css'
+// import logoImage from '../src/images/Odyssey-b-logo.png'
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -16,6 +18,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login-container">
+    {/* <img  src={logoImage} alt='odyssey logo' />  */}
       <div className="container mt-5">
         <div className="row justify-content-center">
           <div className="form-card col-md-8 col-lg-6">
