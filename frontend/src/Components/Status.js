@@ -1,10 +1,8 @@
-// src/Status.js
 import React from 'react';
 
 const Status = () => (
-  <div>
+  <div className='col-md-9'>
     <h1>Status Page</h1>
-    {/* Add your content here */}
   </div>
 );
 

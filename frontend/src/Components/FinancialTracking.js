@@ -1,10 +1,8 @@
-// src/FinancialTracking.js
 import React from 'react';
 
 const FinancialTracking = () => (
-  <div>
+  <div className='col-md-9'>
     <h1>Financial Tracking Page</h1>
-    {/* Add your content here */}
   </div>
 );
 

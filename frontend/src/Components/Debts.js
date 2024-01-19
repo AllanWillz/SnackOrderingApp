@@ -1,10 +1,8 @@
-// src/Debt.js
 import React from 'react';
 
 const Debt = () => (
-  <div>
+  <div className='col-md-9'>
     <h1>Debt Page</h1>
-    {/* Add your content here */}
   </div>
 );
 

@@ -1,10 +1,9 @@
-// src/ProductManagement.js
 import React from 'react';
 
 const ProductManagement = () => (
-  <div>
+  <div className='col-md-9'>
     <h1>Product Management Page</h1>
-    {/* Add your content here */}
+    
   </div>
 );
 

@@ -7,6 +7,7 @@ import odysseyLogoImage from "../src/images/Odyssey-b-logo.png";
 import Login from '../src/Login';
 import './App.css';
 
+
 import OrdersPage from './Components/OrdersPage';
 import OrderHistory from './Components/OrderHistory';
 import ProductManagement from './Components/ProductManagement';
@@ -215,13 +216,13 @@ const App = () => {
                   <li key='Status' className={`list-group-item ${activeMenu === 'Status' ? 'active' : ''}`} onClick={() => handleMenuClick('Status')}>
                     <Link to="/status">Status</Link>
                   </li>
-                  <li
+                  {/* <li
                     key='Cart'
                     className={`list-group-item ${activeMenu === 'Cart' ? 'active' : ''}`}
                     onClick={() => handleMenuClick('Cart')}
                   >
                     <Link to="/cart">Cart</Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
 
