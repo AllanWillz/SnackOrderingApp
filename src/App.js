@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { FaTrash, FaTimes } from 'react-icons/fa';
+import {  FaTimes } from 'react-icons/fa';
 import { Link, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import odysseyLogoImage from "../src/images/Odyssey-b-logo.png";
 // import mealList from '../src/MealList'
 import Login from '../src/Login';
 import './App.css';
+
+import OrdersPage from './Components/OrdersPage';
+import OrderHistory from './Components/OrderHistory';
+import ProductManagement from './Components/ProductManagement';
+import FinancialTracking from './Components/FinancialTracking';
+import Debt from './Components/Debts';
+import Status from './Components/Status';
 
 
 
@@ -18,22 +25,7 @@ const Home = ({ snacks, handleOrder, showMoreMembers, handleToggleMembers, membe
 
 
 
-const OrdersPage = ({ orders, handleRemove }) => (
-  <div className="col-md-9">
-    <h3>Orders</h3>
-    {orders.map((order) => (
-      <div key={order.id} className="d-flex justify-content-between align-items-center mb-2">
-        <div>
-          <img src={`path/to/${order.name}.jpg`} alt={order.name} className="rounded-circle mr-2" />
-          {order.name} (Qty: {order.quantity})
-        </div>
-        <button className="btn btn-danger" onClick={() => handleRemove(order.id)}>
-          <FaTrash />
-        </button>
-      </div>
-    ))}
-  </div>
-);
+
 
 
 
@@ -238,6 +230,11 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home snacks={snacks} handleOrder={handleOrder} showMoreMembers={showMoreMembers} handleToggleMembers={handleToggleMembers} members={members} />} />
                 <Route path="/orders" element={<OrdersPage orders={orders} handleRemove={handleRemove} />} />
+                <Route path="/order-history" element={<OrderHistory />} />
+                <Route path="/product-management" element={<ProductManagement />} />
+                <Route path="/financial-tracking" element={<FinancialTracking />} />
+                <Route path="/debt" element={<Debt />} />
+                <Route path="/status" element={<Status />} />
               </Routes>
 
               <AdditionalMembersOverlay
