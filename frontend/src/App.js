@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
-import {  FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
+import { IoMdNotifications } from 'react-icons/io';
 import { Link, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import odysseyLogoImage from "../src/images/Odyssey-b-logo.png";
-// import mealList from '../src/MealList'
 import Login from '../src/Login';
-import './App.css';
-
-
 import OrdersPage from './Components/OrdersPage';
 import OrderHistory from './Components/OrderHistory';
 import ProductManagement from './Components/ProductManagement';
 import FinancialTracking from './Components/FinancialTracking';
 import Debt from './Components/Debts';
 import Status from './Components/Status';
-
-
+import './App.css'
 
 const Home = ({ snacks, handleOrder, showMoreMembers, handleToggleMembers, members }) => (
   <>
@@ -24,15 +19,8 @@ const Home = ({ snacks, handleOrder, showMoreMembers, handleToggleMembers, membe
   </>
 );
 
-
-
-
-
-
-
 const SnacksList = ({ snacks, handleOrder }) => (
   <div className="col-md-5">
-    <h3 className='text-center'>Snacks List</h3>
     {snacks.map((snack) => (
       <div key={snack.id} className="card mb-3 shadow">
         <img src={`path/to/${snack.name}.jpg`} alt={snack.name} className="card-img-top" />
@@ -48,18 +36,12 @@ const SnacksList = ({ snacks, handleOrder }) => (
   </div>
 );
 
-
-
 const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
   <div className="col-md-4 text-center align-items-center">
     <h3>PROFILE</h3>
     <div className="profile-container shadow rounded text-center" style={{ marginLeft: '50px' }}>
       <h4 className="mb-3">Person</h4>
-      <img
-        src="https://via.placeholder.com/150"
-        alt="Profile"
-        className="rounded-circle mb-3"
-      />
+      <img src="https://via.placeholder.com/150" alt="Profile" className="rounded-circle mb-3" />
       <p>Name: Allan K</p>
       <button className="btn btn-primary mb-3">Edit Profile</button>
     </div>
@@ -67,11 +49,7 @@ const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
     {members.map((member) => (
       <div key={member.id} className="d-flex justify-content-between align-items-center mb-2">
         <div>
-          <img
-            src="https://via.placeholder.com/40"
-            alt={member.name}
-            className="rounded-circle mr-2"
-          />
+          <img src="https://via.placeholder.com/40" alt={member.name} className="rounded-circle mr-2" />
           {member.name}
         </div>
         <button className="btn btn-danger">Remove</button>
@@ -80,9 +58,9 @@ const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
     <button className="btn btn-link" onClick={handleToggleMembers}>
       {showMoreMembers ? <FaTimes /> : 'See More'}
     </button>
+    <IoMdNotifications size={24} style={{ marginLeft: '10px', cursor: 'pointer' }} />
   </div>
 );
-
 
 const AdditionalMembersOverlay = ({ showMoreMembers, handleToggleMembers, additionalMembers }) => (
   showMoreMembers && (
@@ -93,16 +71,9 @@ const AdditionalMembersOverlay = ({ showMoreMembers, handleToggleMembers, additi
         </button>
         <h3>Additional Members</h3>
         {additionalMembers.map((member) => (
-          <div
-            key={member.id}
-            className="d-flex justify-content-between align-items-center mb-2"
-          >
+          <div key={member.id} className="d-flex justify-content-between align-items-center mb-2">
             <div>
-              <img
-                src="https://via.placeholder.com/40"
-                alt={member.name}
-                className="rounded-circle mr-2"
-              />
+              <img src="https://via.placeholder.com/40" alt={member.name} className="rounded-circle mr-2" />
               {member.name}
             </div>
             <button className="btn btn-danger">Remove</button>
@@ -113,12 +84,12 @@ const AdditionalMembersOverlay = ({ showMoreMembers, handleToggleMembers, additi
   )
 );
 
-
 const App = () => {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
   const [showMoreMembers, setShowMoreMembers] = useState(false);
   const [activeMenu, setActiveMenu] = useState('Orders');
+  const [darkMode, setDarkMode] = useState(false);
 
   const snacks = [
     { id: 1, name: 'Snack 1', price: 200 },
@@ -171,9 +142,13 @@ const App = () => {
     setActiveMenu(menu);
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <Router>
-      <div className="container">
+       <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
         {user ? (
           <>
             <div className="row mt-3">
@@ -185,9 +160,12 @@ const App = () => {
                 </div>
               </div>
               <div className="col-md-6 text-end">
+                <IoMdNotifications size={24} style={{ marginRight: '40px', cursor: 'pointer', color: "blue" }} />
+
                 <button className="btn btn-danger" onClick={handleLogout}>
                   Logout
                 </button>
+                
               </div>
             </div>
 
@@ -216,14 +194,10 @@ const App = () => {
                   <li key='Status' className={`list-group-item ${activeMenu === 'Status' ? 'active' : ''}`} onClick={() => handleMenuClick('Status')}>
                     <Link to="/status">Status</Link>
                   </li>
-                  {/* <li
-                    key='Cart'
-                    className={`list-group-item ${activeMenu === 'Cart' ? 'active' : ''}`}
-                    onClick={() => handleMenuClick('Cart')}
-                  >
-                    <Link to="/cart">Cart</Link>
-                  </li> */}
                 </ul>
+                <button className="btn btn-primary mt-3" onClick={toggleDarkMode}>
+                  Toggle Theme
+                </button>
               </div>
 
               <div className="col-md-1 border-end"></div>
@@ -254,6 +228,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
