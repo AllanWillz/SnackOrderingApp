@@ -10,17 +10,23 @@ import ProductManagement from './Components/ProductManagement';
 import FinancialTracking from './Components/FinancialTracking';
 import Debt from './Components/Debts';
 import Status from './Components/Status';
-import './App.css'
+import './App.css';
 
-const Home = ({ snacks, handleOrder, showMoreMembers, handleToggleMembers, members }) => (
+const Home = ({ snacks, handleOrder, handleAddSnack, showMoreMembers, handleToggleMembers, members }) => (
   <>
-    <SnacksList snacks={snacks} handleOrder={handleOrder} />
+    <SnacksList snacks={snacks} handleOrder={handleOrder} handleAddSnack={handleAddSnack} />
     <ProfileSection showMoreMembers={showMoreMembers} handleToggleMembers={handleToggleMembers} members={members} />
   </>
 );
 
-const SnacksList = ({ snacks, handleOrder }) => (
+const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
   <div className="col-md-5">
+    <div className="d-flex justify-content-end mb-3">
+      <button className="btn btn-primary" onClick={handleAddSnack}>
+        Add Snack
+      </button>
+    </div>
+
     {snacks.map((snack) => (
       <div key={snack.id} className="card mb-3 shadow">
         <img src={`path/to/${snack.name}.jpg`} alt={snack.name} className="card-img-top" />
@@ -90,12 +96,11 @@ const App = () => {
   const [showMoreMembers, setShowMoreMembers] = useState(false);
   const [activeMenu, setActiveMenu] = useState('Orders');
   const [darkMode, setDarkMode] = useState(false);
-
-  const snacks = [
+  const [snacks, setSnacks] = useState([
     { id: 1, name: 'Snack 1', price: 200 },
     { id: 2, name: 'Snack 2', price: 100 },
     { id: 3, name: 'Snack 3', price: 500 },
-  ];
+  ]);
 
   const members = [
     { id: 1, name: 'Member 1' },
@@ -146,9 +151,21 @@ const App = () => {
     setDarkMode(!darkMode);
   };
 
+  const handleAddSnack = () => {
+    //LOGIC
+    const newSnack = {
+      id: snacks.length + 1,
+      name: `Snack ${snacks.length + 1}`,
+      price: Math.floor(Math.random() * 1000),
+    };
+
+    //UPDATE SNCK LST
+    setSnacks([...snacks, newSnack]);
+  };
+
   return (
     <Router>
-       <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
+      <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
         {user ? (
           <>
             <div className="row mt-3">
@@ -161,11 +178,12 @@ const App = () => {
               </div>
               <div className="col-md-6 text-end">
                 <IoMdNotifications size={24} style={{ marginRight: '40px', cursor: 'pointer', color: "blue" }} />
-
                 <button className="btn btn-danger" onClick={handleLogout}>
                   Logout
                 </button>
-                
+                {/* <button className="btn btn-primary" onClick={toggleDarkMode}>
+                  Toggle Theme
+                </button> */}
               </div>
             </div>
 
@@ -203,7 +221,7 @@ const App = () => {
               <div className="col-md-1 border-end"></div>
 
               <Routes>
-                <Route path="/" element={<Home snacks={snacks} handleOrder={handleOrder} showMoreMembers={showMoreMembers} handleToggleMembers={handleToggleMembers} members={members} />} />
+                <Route path="/" element={<Home snacks={snacks} handleOrder={handleOrder} handleAddSnack={handleAddSnack} showMoreMembers={showMoreMembers} handleToggleMembers={handleToggleMembers} members={members} />} />
                 <Route path="/orders" element={<OrdersPage orders={orders} handleRemove={handleRemove} />} />
                 <Route path="/order-history" element={<OrderHistory />} />
                 <Route path="/product-management" element={<ProductManagement />} />
