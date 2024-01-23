@@ -1,8 +1,8 @@
 // import React, { useState } from 'react';
 // import './MealList.css';
-// import pancakeImage from './images/pizza.jpg';
-// import samosaImage from './images/burger.jpg';
-// import cassavaImage from './images/pasta.jpg';
+// import pancakeImage from '../src/images';
+// import samosaImage from '../src/images/Chapati.jpg';
+// import cassavaImage from '../src/images/Samosa 2.jpg';
 
 // const MealList = () => {
 //   const [selectedMeals, setSelectedMeals] = useState([]);
@@ -19,8 +19,8 @@
 
 //   const mealData = [
 //     { name: 'Pancakes', image: pancakeImage },
-//     { name: 'Samosas', image: samosaImage },
-//     { name: 'Fried Cassava', image: cassavaImage },
+//     { name: 'Samosas', image: pancakeImage },
+//     { name: 'Fried Cassava', image: pancakeImage },
 //   ];
 
 //   return (

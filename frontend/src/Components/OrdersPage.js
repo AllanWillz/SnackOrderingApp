@@ -10,7 +10,7 @@ const OrdersPage = ({ orders, handleRemove }) => (
     {orders.map((order) => (
       <div key={order.id} className="d-flex justify-content-between align-items-center mb-2">
         <div>
-          <img src={`path/to/${order.name}.jpg`} alt={order.name} className="rounded-circle mr-2" />
+          <img src={`.${order.name}`} alt={order.name} className="rounded-circle mr-2" />
           {order.name} (Qty: {order.quantity})
         </div>
         <button className="btn btn-danger" onClick={() => handleRemove(order.id)}>

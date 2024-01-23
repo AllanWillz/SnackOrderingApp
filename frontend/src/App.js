@@ -12,15 +12,24 @@ import Debt from './Components/Debts';
 import Status from './Components/Status';
 import './App.css';
 
+import image1 from '../src/images/Samosa.jpg'
+import image2 from '../src/images/Cassava.jpg'
+import image3 from '../src/images/Chapati.jpg'
+import image4 from '../src/images/Samosa 2.jpg'
+
+// import Samosa from './images/Samosa.jpg'
+
 const Home = ({ snacks, handleOrder, handleAddSnack, showMoreMembers, handleToggleMembers, members }) => (
   <>
     <SnacksList snacks={snacks} handleOrder={handleOrder} handleAddSnack={handleAddSnack} />
     <ProfileSection showMoreMembers={showMoreMembers} handleToggleMembers={handleToggleMembers} members={members} />
+    <AdditionalMembersOverlay showMoreMembers={showMoreMembers} handleToggleMembers={handleToggleMembers} additionalMembers={members} />
   </>
 );
 
 const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
-  <div className="col-md-5">
+  <div className="col-md-5 overflow-auto">
+    <h3>Snack List</h3>
     <div className="d-flex justify-content-end mb-3">
       <button className="btn btn-primary" onClick={handleAddSnack}>
         Add Snack
@@ -29,7 +38,9 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
 
     {snacks.map((snack) => (
       <div key={snack.id} className="card mb-3 shadow">
-        <img src={`path/to/${snack.name}.jpg`} alt={snack.name} className="card-img-top" />
+
+       <img src={`.${snack.image}`} alt={snack.name} className="card-img-top" />
+        
         <div className="card-body">
           <h5 className="card-title">{snack.name}</h5>
           <p className="card-text">Price: ${snack.price}</p>
@@ -38,12 +49,13 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
           </button>
         </div>
       </div>
+      
     ))}
   </div>
 );
 
 const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
-  <div className="col-md-4 text-center align-items-center">
+  <div className="col-md-4 text-center align-items-center ">
     <h3>PROFILE</h3>
     <div className="profile-container shadow rounded text-center" style={{ marginLeft: '50px' }}>
       <h4 className="mb-3">Person</h4>
@@ -88,7 +100,9 @@ const AdditionalMembersOverlay = ({ showMoreMembers, handleToggleMembers, additi
       </div>
     </div>
   )
-);
+)
+
+
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -97,20 +111,17 @@ const App = () => {
   const [activeMenu, setActiveMenu] = useState('Orders');
   const [darkMode, setDarkMode] = useState(false);
   const [snacks, setSnacks] = useState([
-    { id: 1, name: 'Snack 1', price: 200 },
-    { id: 2, name: 'Snack 2', price: 100 },
-    { id: 3, name: 'Snack 3', price: 500 },
+
+    { id: 1, image: image1, name: 'Snack 1', price: 200,  },
+    { id: 2, image: image2, name: 'Snack 2', price: 100,  },
+    { id: 3, image: image3 , name: 'Snack 3', price: 500, },
+    { id: 3, image: image4 , name: 'Snack 3', price: 200, },
   ]);
 
   const members = [
     { id: 1, name: 'Member 1' },
     { id: 2, name: 'Member 2' },
     { id: 3, name: 'Member 3' },
-  ];
-
-  const additionalMembers = [
-    { id: 4, name: 'Additional Member 1' },
-    { id: 5, name: 'Additional Member 2' },
   ];
 
   const handleOrder = (snack) => {
@@ -151,8 +162,8 @@ const App = () => {
     setDarkMode(!darkMode);
   };
 
+
   const handleAddSnack = () => {
-    //LOGIC
     const newSnack = {
       id: snacks.length + 1,
       name: `Snack ${snacks.length + 1}`,
@@ -181,13 +192,10 @@ const App = () => {
                 <button className="btn btn-danger" onClick={handleLogout}>
                   Logout
                 </button>
-                {/* <button className="btn btn-primary" onClick={toggleDarkMode}>
-                  Toggle Theme
-                </button> */}
               </div>
             </div>
 
-            <div className="row mt-5">
+            <div className="row mt-5  ">
               <div className="col-md-2">
                 <h3>Menu</h3>
                 <ul className="list-group">
@@ -229,12 +237,6 @@ const App = () => {
                 <Route path="/debt" element={<Debt />} />
                 <Route path="/status" element={<Status />} />
               </Routes>
-
-              <AdditionalMembersOverlay
-                showMoreMembers={showMoreMembers}
-                handleToggleMembers={handleToggleMembers}
-                additionalMembers={additionalMembers}
-              />
             </div>
           </>
         ) : (
