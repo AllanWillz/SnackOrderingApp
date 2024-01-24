@@ -17,8 +17,6 @@ import image2 from '../src/images/Cassava.jpg'
 import image3 from '../src/images/Chapati.jpg'
 import image4 from '../src/images/Samosa 2.jpg'
 
-// import Samosa from './images/Samosa.jpg'
-
 const Home = ({ snacks, handleOrder, handleAddSnack, showMoreMembers, handleToggleMembers, members }) => (
   <>
     <SnacksList snacks={snacks} handleOrder={handleOrder} handleAddSnack={handleAddSnack} />
@@ -38,9 +36,7 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
 
     {snacks.map((snack) => (
       <div key={snack.id} className="card mb-3 shadow">
-
-       <img src={`.${snack.image}`} alt={snack.name} className="card-img-top" />
-        
+        <img src={`.${snack.image}`} alt={snack.name} className="card-img-top" />
         <div className="card-body">
           <h5 className="card-title">{snack.name}</h5>
           <p className="card-text">Price: ${snack.price}</p>
@@ -49,10 +45,14 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
           </button>
         </div>
       </div>
-      
     ))}
   </div>
 );
+
+
+
+
+
 
 const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
   <div className="col-md-4 text-center align-items-center ">
@@ -61,7 +61,9 @@ const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
       <h4 className="mb-3">Person</h4>
       <img src="https://via.placeholder.com/150" alt="Profile" className="rounded-circle mb-3" />
       <p>Name: Allan K</p>
-      <button className="btn btn-primary mb-3">Edit Profile</button>
+      <Link to="/edit-profile">
+        <button className="btn btn-primary mb-3">Edit Profile</button>
+      </Link>
     </div>
     <h4 className="mt-4">Members</h4>
     {members.map((member) => (
@@ -70,7 +72,7 @@ const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
           <img src="https://via.placeholder.com/40" alt={member.name} className="rounded-circle mr-2" />
           {member.name}
         </div>
-        <button className="btn btn-danger">Remove</button>
+        <button className="btn btn-light">Remove</button>
       </div>
     ))}
     <button className="btn btn-link" onClick={handleToggleMembers}>
@@ -94,15 +96,13 @@ const AdditionalMembersOverlay = ({ showMoreMembers, handleToggleMembers, additi
               <img src="https://via.placeholder.com/40" alt={member.name} className="rounded-circle mr-2" />
               {member.name}
             </div>
-            <button className="btn btn-danger">Remove</button>
+            <button className="btn  btn-light">Remove</button>
           </div>
         ))}
       </div>
     </div>
   )
-)
-
-
+);
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -111,11 +111,10 @@ const App = () => {
   const [activeMenu, setActiveMenu] = useState('Orders');
   const [darkMode, setDarkMode] = useState(false);
   const [snacks, setSnacks] = useState([
-
-    { id: 1, image: image1, name: 'Snack 1', price: 200,  },
-    { id: 2, image: image2, name: 'Snack 2', price: 100,  },
-    { id: 3, image: image3 , name: 'Snack 3', price: 500, },
-    { id: 3, image: image4 , name: 'Snack 3', price: 200, },
+    { id: 1, image: image1, name: 'Snack 1', price: 200 },
+    { id: 2, image: image2, name: 'Snack 2', price: 100 },
+    { id: 3, image: image3, name: 'Snack 3', price: 500 },
+    { id: 4, image: image4, name: 'Snack 3', price: 200 },
   ]);
 
   const members = [
@@ -162,7 +161,6 @@ const App = () => {
     setDarkMode(!darkMode);
   };
 
-
   const handleAddSnack = () => {
     const newSnack = {
       id: snacks.length + 1,
@@ -170,7 +168,6 @@ const App = () => {
       price: Math.floor(Math.random() * 1000),
     };
 
-    //UPDATE SNCK LST
     setSnacks([...snacks, newSnack]);
   };
 
