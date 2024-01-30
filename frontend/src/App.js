@@ -10,7 +10,7 @@ import ProductManagement from './Components/ProductManagement';
 import FinancialTracking from './Components/FinancialTracking';
 import Debt from './Components/Debts';
 import Status from './Components/Status';
-import AddSnackForm from './Components/AddSnackForm';  
+import AddSnackForm from './Components/AddSnackForm';
 import './App.css';
 
 import image1 from '../src/images/Samosa.jpg';
@@ -37,7 +37,7 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
 
     {snacks.map((snack) => (
       <div key={snack.id} className="card mb-3 shadow">
-        <img src={`.${snack.image}`} alt={snack.name} className="card-img-top" />
+        <img src={snack.image} alt={snack.name} className="card-img-top" />
         <div className="card-body">
           <h5 className="card-title">{snack.name}</h5>
           <p className="card-text">Price: ${snack.price}</p>
@@ -105,7 +105,7 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [totalItemsInOrders, setTotalItemsInOrders] = useState(0);
   const [showMoreMembers, setShowMoreMembers] = useState(false);
-  // const [showAddSnackForm, setShowAddSnackForm] = useState(false);
+  const [showAddSnackForm, setShowAddSnackForm] = useState(false);
   const [activeMenu, setActiveMenu] = useState('Orders');
   const [darkMode, setDarkMode] = useState(false);
   const [snacks, setSnacks] = useState([
@@ -166,13 +166,11 @@ const App = () => {
   };
 
   const handleAddSnack = () => {
-    const newSnack = {
-      id: snacks.length + 1,
-      name: `Snack ${snacks.length + 1}`,
-      price: Math.floor(Math.random() * 1000),
-    };
+    setShowAddSnackForm(true);
+  };
 
-    setSnacks([...snacks, newSnack]);
+  const handleCloseForm = () => {
+    setShowAddSnackForm(false);
   };
 
   return (
@@ -228,7 +226,9 @@ const App = () => {
                     <Link to="/debt">Debt</Link>
                   </li>
                   <li key='Add Snack' className={`list-group-item ${activeMenu === 'Add Snack' ? 'active' : ''}`} onClick={() => handleMenuClick('Add Snack')}>
-                    <Link to="/add-snack">Add Snack</Link>
+                    <button className="btn btn-link" onClick={() => setShowAddSnackForm(true)}>
+                      Add Snack
+                    </button>
                   </li>
                 </ul>
                 <button className="btn btn-primary mt-3" onClick={toggleDarkMode}>
@@ -250,9 +250,20 @@ const App = () => {
                   </>
                 )}
                 <Route path="/debt" element={<Debt />} />
-                <Route path="/add-snack" element={<AddSnackForm handleAddSnack={handleAddSnack} />} />
+                <Route path="/add-snack" element={<AddSnackForm handleAddSnack={handleAddSnack} handleCloseForm={handleCloseForm} />} />
               </Routes>
             </div>
+            {showAddSnackForm && (
+              <div className="overlay-container">
+                <div className="overlay-content">
+                  <button className="btn btn-link float-end" onClick={() => setShowAddSnackForm(false)}>
+                    <FaTimes />
+                  </button>
+                  <h3>Add Snack</h3>
+                  {/* ... (your AddSnackForm content here) */}
+                </div>
+              </div>
+            )}
           </>
         ) : (
           <Login onLogin={handleLogin} />

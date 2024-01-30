@@ -1,4 +1,3 @@
-// AddSnackForm.js
 import React, { useState } from 'react';
 
 const AddSnackForm = ({ handleAddSnack, handleCloseForm }) => {
@@ -7,12 +6,12 @@ const AddSnackForm = ({ handleAddSnack, handleCloseForm }) => {
   const [imageURL, setImageURL] = useState('');
 
   const handleAddSnackClick = () => {
-    // Validate input values here if needed
+    if (!name || !price || !imageURL) {
+      alert('Please fill in all fields.');
+      return;
+    }
 
-    // Call the handleAddSnack function from the parent component
-    handleAddSnack({ name, price, imageURL });
-
-    // Close the form
+    handleAddSnack({ name, price: parseFloat(price), imageURL });
     handleCloseForm();
   };
 
