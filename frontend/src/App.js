@@ -10,12 +10,13 @@ import ProductManagement from './Components/ProductManagement';
 import FinancialTracking from './Components/FinancialTracking';
 import Debt from './Components/Debts';
 import Status from './Components/Status';
+import AddSnackForm from './Components/AddSnackForm';  
 import './App.css';
 
-import image1 from '../src/images/Samosa.jpg'
-import image2 from '../src/images/Cassava.jpg'
-import image3 from '../src/images/Chapati.jpg'
-import image4 from '../src/images/Samosa 2.jpg'
+import image1 from '../src/images/Samosa.jpg';
+import image2 from '../src/images/Cassava.jpg';
+import image3 from '../src/images/Chapati.jpg';
+import image4 from '../src/images/Samosa 2.jpg';
 
 const Home = ({ snacks, handleOrder, handleAddSnack, showMoreMembers, handleToggleMembers, members }) => (
   <>
@@ -48,11 +49,6 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
     ))}
   </div>
 );
-
-
-
-
-
 
 const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
   <div className="col-md-4 text-center align-items-center ">
@@ -107,7 +103,9 @@ const AdditionalMembersOverlay = ({ showMoreMembers, handleToggleMembers, additi
 const App = () => {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
+  const [totalItemsInOrders, setTotalItemsInOrders] = useState(0);
   const [showMoreMembers, setShowMoreMembers] = useState(false);
+  // const [showAddSnackForm, setShowAddSnackForm] = useState(false);
   const [activeMenu, setActiveMenu] = useState('Orders');
   const [darkMode, setDarkMode] = useState(false);
   const [snacks, setSnacks] = useState([
@@ -123,6 +121,8 @@ const App = () => {
     { id: 3, name: 'Member 3' },
   ];
 
+  const isAdmin = user === 'admin';
+
   const handleOrder = (snack) => {
     const existingOrder = orders.find((order) => order.id === snack.id);
 
@@ -135,10 +135,14 @@ const App = () => {
     } else {
       setOrders([...orders, { ...snack, quantity: 1 }]);
     }
+
+    setTotalItemsInOrders((prevTotal) => prevTotal + 1);
   };
 
   const handleRemove = (snackId) => {
     setOrders(orders.filter((order) => order.id !== snackId));
+
+    setTotalItemsInOrders((prevTotal) => Math.max(prevTotal - 1, 0));
   };
 
   const handleToggleMembers = () => {
@@ -173,10 +177,10 @@ const App = () => {
 
   return (
     <Router>
-      <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
+      <div className={`container ${darkMode ? 'dark-mode' : ''} `}>
         {user ? (
           <>
-            <div className="row mt-3">
+            <div className="row mt-3 nav">
               <div className="col-md-6">
                 <div className="company-info d-flex align-items-center">
                   <Link to="/" className="navbar-brand">
@@ -200,7 +204,9 @@ const App = () => {
                     <Link to="/">Home</Link>
                   </li>
                   <li key='Orders' className={`list-group-item ${activeMenu === 'Orders' ? 'active' : ''}`} onClick={() => handleMenuClick('Orders')}>
-                    <Link to="/orders">Orders</Link>
+                    <Link to="/orders">
+                      Orders {totalItemsInOrders > 0 && <span className="badge bg-secondary">{totalItemsInOrders}</span>}
+                    </Link>
                   </li>
                   <li key='Order History' className={`list-group-item ${activeMenu === 'Order History' ? 'active' : ''}`} onClick={() => handleMenuClick('Order History')}>
                     <Link to="/order-history">Order History</Link>
@@ -208,14 +214,21 @@ const App = () => {
                   <li key='Product Management' className={`list-group-item ${activeMenu === 'Product Management' ? 'active' : ''}`} onClick={() => handleMenuClick('Product Management')}>
                     <Link to="/product-management">Product Management</Link>
                   </li>
-                  <li key='Financial Tracking' className={`list-group-item ${activeMenu === 'Financial Tracking' ? 'active' : ''}`} onClick={() => handleMenuClick('Financial Tracking')}>
-                    <Link to="/financial-tracking">Financial Tracking</Link>
-                  </li>
+                  {isAdmin && (
+                    <>
+                      <li key='Financial Tracking' className={`list-group-item ${activeMenu === 'Financial Tracking' ? 'active' : ''}`} onClick={() => handleMenuClick('Financial Tracking')}>
+                        <Link to="/financial-tracking">Financial Tracking</Link>
+                      </li>
+                      <li key='Status' className={`list-group-item ${activeMenu === 'Status' ? 'active' : ''}`} onClick={() => handleMenuClick('Status')}>
+                        <Link to="/status">Status</Link>
+                      </li>
+                    </>
+                  )}
                   <li key='Debt' className={`list-group-item ${activeMenu === 'Debt' ? 'active' : ''}`} onClick={() => handleMenuClick('Debt')}>
                     <Link to="/debt">Debt</Link>
                   </li>
-                  <li key='Status' className={`list-group-item ${activeMenu === 'Status' ? 'active' : ''}`} onClick={() => handleMenuClick('Status')}>
-                    <Link to="/status">Status</Link>
+                  <li key='Add Snack' className={`list-group-item ${activeMenu === 'Add Snack' ? 'active' : ''}`} onClick={() => handleMenuClick('Add Snack')}>
+                    <Link to="/add-snack">Add Snack</Link>
                   </li>
                 </ul>
                 <button className="btn btn-primary mt-3" onClick={toggleDarkMode}>
@@ -230,9 +243,14 @@ const App = () => {
                 <Route path="/orders" element={<OrdersPage orders={orders} handleRemove={handleRemove} />} />
                 <Route path="/order-history" element={<OrderHistory />} />
                 <Route path="/product-management" element={<ProductManagement />} />
-                <Route path="/financial-tracking" element={<FinancialTracking />} />
+                {isAdmin && (
+                  <>
+                    <Route path="/financial-tracking" element={<FinancialTracking />} />
+                    <Route path="/status" element={<Status />} />
+                  </>
+                )}
                 <Route path="/debt" element={<Debt />} />
-                <Route path="/status" element={<Status />} />
+                <Route path="/add-snack" element={<AddSnackForm handleAddSnack={handleAddSnack} />} />
               </Routes>
             </div>
           </>

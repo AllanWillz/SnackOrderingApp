@@ -80,29 +80,18 @@ body.dark-mode {
   width: 400px; 
 }
 
-
-/* Update this in your CSS */
-
-
-
-
-
-/* Add this to your CSS */
-/* .overlay-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6); 
-  justify-content: center;
-  align-items: center;
+.list-group-item {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  transition: color 0.3s ease;
+  text-decoration: none;
+  border: none;
 }
 
-.overlay-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-} */
+.list-group-item:hover {
+  color: grey;
+}
 
+.list-group-item.active {
+  background-color: #e9e9e9; 
+}
