@@ -105,7 +105,7 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [totalItemsInOrders, setTotalItemsInOrders] = useState(0);
   const [showMoreMembers, setShowMoreMembers] = useState(false);
-  const [showAddSnackForm, setShowAddSnackForm] = useState(false);
+  const [showAddSnackForm, setShowAddSnackForm] = useState(false); // Updated state name
   const [activeMenu, setActiveMenu] = useState('Orders');
   const [darkMode, setDarkMode] = useState(false);
   const [snacks, setSnacks] = useState([
@@ -226,7 +226,7 @@ const App = () => {
                     <Link to="/debt">Debt</Link>
                   </li>
                   <li key='Add Snack' className={`list-group-item ${activeMenu === 'Add Snack' ? 'active' : ''}`} onClick={() => handleMenuClick('Add Snack')}>
-                    <button className="btn btn-link" onClick={() => setShowAddSnackForm(true)}>
+                    <button className="btn btn-link" onClick={handleAddSnack}>
                       Add Snack
                     </button>
                   </li>
@@ -253,17 +253,19 @@ const App = () => {
                 <Route path="/add-snack" element={<AddSnackForm handleAddSnack={handleAddSnack} handleCloseForm={handleCloseForm} />} />
               </Routes>
             </div>
+
+
             {showAddSnackForm && (
-              <div className="overlay-container">
-                <div className="overlay-content">
-                  <button className="btn btn-link float-end" onClick={() => setShowAddSnackForm(false)}>
-                    <FaTimes />
-                  </button>
-                  <h3>Add Snack</h3>
-                  {/* ... (your AddSnackForm content here) */}
-                </div>
-              </div>
-            )}
+          <div className="overlay-container">
+            <div className="overlay-content">
+              <button className="btn btn-link float-end" onClick={handleCloseForm}>
+                <FaTimes />
+              </button>
+              <h3>Add Snack</h3>
+              <AddSnackForm handleAddSnack={handleAddSnack} handleCloseForm={handleCloseForm} />
+            </div>
+          </div>
+        )}
           </>
         ) : (
           <Login onLogin={handleLogin} />

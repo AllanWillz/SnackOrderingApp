@@ -46,6 +46,7 @@ const AddSnackForm = ({ handleAddSnack, handleCloseForm }) => {
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
+
         <div className="mb-3">
           <label htmlFor="snackImageURL" className="form-label">
             Image URL
@@ -58,6 +59,7 @@ const AddSnackForm = ({ handleAddSnack, handleCloseForm }) => {
             onChange={(e) => setImageURL(e.target.value)}
           />
         </div>
+
         <button className="btn btn-primary" onClick={handleAddSnackClick}>
           Add Snack
         </button>
