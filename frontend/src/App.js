@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { IoMdNotifications } from 'react-icons/io';
 import { Link, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import odysseyLogoImage from "../src/images/Odyssey-b-logo.png";
+import odysseyLogoImage from "../src/images/odyssey.png";
 import Login from '../src/Login';
 import OrdersPage from './Components/OrdersPage';
 import OrderHistory from './Components/OrderHistory';
@@ -10,7 +10,7 @@ import ProductManagement from './Components/ProductManagement';
 import FinancialTracking from './Components/FinancialTracking';
 import Debt from './Components/Debts';
 import Status from './Components/Status';
-import AddSnackForm from './Components/AddSnackForm';
+import AddSnackForm from './Components/AddSnackForm'; 
 import './App.css';
 
 import image1 from '../src/images/Samosa.jpg';
@@ -18,15 +18,31 @@ import image2 from '../src/images/Cassava.jpg';
 import image3 from '../src/images/Chapati.jpg';
 import image4 from '../src/images/Samosa 2.jpg';
 
-const Home = ({ snacks, handleOrder, handleAddSnack, showMoreMembers, handleToggleMembers, members }) => (
+const Home = ({ snacks, handleOrder, handleAddSnack, handleRemove, showMoreMembers, handleToggleMembers, members }) => (
   <>
-    <SnacksList snacks={snacks} handleOrder={handleOrder} handleAddSnack={handleAddSnack} />
+    <SnacksList snacks={snacks} handleOrder={handleOrder} handleAddSnack={handleAddSnack} handleRemove={handleRemove} />
     <ProfileSection showMoreMembers={showMoreMembers} handleToggleMembers={handleToggleMembers} members={members} />
     <AdditionalMembersOverlay showMoreMembers={showMoreMembers} handleToggleMembers={handleToggleMembers} additionalMembers={members} />
   </>
 );
 
-const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
+const SnackCard = ({ snack, handleOrder, handleRemove }) => (
+  <div key={snack.id} className="card mb-3 shadow">
+    <img src={snack.image} alt={snack.name} className="card-img-top"  />
+    <div className="card-body">
+      <h5 className="card-title">{snack.name}</h5>
+      <p className="card-text">Price: ${snack.price}</p>
+      <button className="btn btn-success mr-2" onClick={() => handleOrder(snack)}>
+        Order
+      </button>
+      <button className="btn btn-danger" onClick={() => handleRemove(snack.id)}>
+        Delete
+      </button>
+    </div>
+  </div>
+);
+
+const SnacksList = ({ snacks, handleOrder, handleAddSnack, handleRemove }) => (
   <div className="col-md-5 overflow-auto">
     <h3>Snack List</h3>
     <div className="d-flex justify-content-end mb-3">
@@ -36,24 +52,15 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack }) => (
     </div>
 
     {snacks.map((snack) => (
-      <div key={snack.id} className="card mb-3 shadow">
-        <img src={snack.image} alt={snack.name} className="card-img-top" />
-        <div className="card-body">
-          <h5 className="card-title">{snack.name}</h5>
-          <p className="card-text">Price: ${snack.price}</p>
-          <button className="btn btn-success mr-2" onClick={() => handleOrder(snack)}>
-            Order
-          </button>
-        </div>
-      </div>
+      <SnackCard key={snack.id} snack={snack} handleOrder={handleOrder} handleRemove={handleRemove} />
     ))}
   </div>
 );
 
 const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
-  <div className="col-md-4 text-center align-items-center ">
+  <div className="col-md-4 text-center align-items-center logo-container">
     <h3>PROFILE</h3>
-    <div className="profile-container shadow rounded text-center" style={{ marginLeft: '50px' }}>
+    <div className="profile-container shadow rounded text-center">
       <h4 className="mb-3">Person</h4>
       <img src="https://via.placeholder.com/150" alt="Profile" className="rounded-circle mb-3" />
       <p>Name: Allan K</p>
@@ -105,12 +112,12 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [totalItemsInOrders, setTotalItemsInOrders] = useState(0);
   const [showMoreMembers, setShowMoreMembers] = useState(false);
-  const [showAddSnackForm, setShowAddSnackForm] = useState(false); // Updated state name
+  const [showAddSnackForm, setShowAddSnackForm] = useState(false);
   const [activeMenu, setActiveMenu] = useState('Orders');
   const [darkMode, setDarkMode] = useState(false);
   const [snacks, setSnacks] = useState([
-    { id: 1, image: image1, name: 'Snack 1', price: 200 },
-    { id: 2, image: image2, name: 'Snack 2', price: 100 },
+    { id: 1, image: image2, name: 'Snack 1', price: 200 },
+    { id: 2, image: image1, name: 'Snack 2', price: 100 },
     { id: 3, image: image3, name: 'Snack 3', price: 500 },
     { id: 4, image: image4, name: 'Snack 3', price: 200 },
   ]);
@@ -140,8 +147,8 @@ const App = () => {
   };
 
   const handleRemove = (snackId) => {
+    setSnacks((prevSnacks) => prevSnacks.filter((snack) => snack.id !== snackId));
     setOrders(orders.filter((order) => order.id !== snackId));
-
     setTotalItemsInOrders((prevTotal) => Math.max(prevTotal - 1, 0));
   };
 
@@ -165,7 +172,11 @@ const App = () => {
     setDarkMode(!darkMode);
   };
 
-  const handleAddSnack = () => {
+  const handleAddSnack = (newSnack) => {
+    setSnacks((prevSnacks) => [
+      ...prevSnacks,
+      { id: prevSnacks.length + 1, ...newSnack },
+    ]);
     setShowAddSnackForm(true);
   };
 
@@ -175,14 +186,14 @@ const App = () => {
 
   return (
     <Router>
-      <div className={`container ${darkMode ? 'dark-mode' : ''} `}>
+      <div className={`container-fluid ${darkMode ? 'dark-mode' : ''} `}   >
         {user ? (
           <>
-            <div className="row mt-3 nav">
+            <div className="row mt-0 nav" style={{background: '#000000', height: 90}}>
               <div className="col-md-6">
                 <div className="company-info d-flex align-items-center">
                   <Link to="/" className="navbar-brand">
-                    <img src={odysseyLogoImage} alt="Company Logo" className="company-logo" />
+                    <img src={odysseyLogoImage} alt="Company Logo" className="company-logo" style={{width: 200}} />
                   </Link>
                 </div>
               </div>
@@ -194,11 +205,11 @@ const App = () => {
               </div>
             </div>
 
-            <div className="row mt-5  ">
-              <div className="col-md-2">
+            <div className="row mt-5">
+              <div className="col-md-2 menu-column">
                 <h3>Menu</h3>
-                <ul className="list-group">
-                  <li key='Home' className={`list-group-item ${activeMenu === 'Home' ? 'active' : ''}`} onClick={() => handleMenuClick('Home')}>
+                <ul className="list-group" >
+                  <li key='Home' className={`list-group-item ${activeMenu === 'Home' ? 'active' : ''}`} onClick={() => handleMenuClick('Home')} >
                     <Link to="/">Home</Link>
                   </li>
                   <li key='Orders' className={`list-group-item ${activeMenu === 'Orders' ? 'active' : ''}`} onClick={() => handleMenuClick('Orders')}>
@@ -212,16 +223,16 @@ const App = () => {
                   <li key='Product Management' className={`list-group-item ${activeMenu === 'Product Management' ? 'active' : ''}`} onClick={() => handleMenuClick('Product Management')}>
                     <Link to="/product-management">Product Management</Link>
                   </li>
-                  {isAdmin && (
-                    <>
+                  {/* {isAdmin && (
+                    <> */}
                       <li key='Financial Tracking' className={`list-group-item ${activeMenu === 'Financial Tracking' ? 'active' : ''}`} onClick={() => handleMenuClick('Financial Tracking')}>
                         <Link to="/financial-tracking">Financial Tracking</Link>
                       </li>
                       <li key='Status' className={`list-group-item ${activeMenu === 'Status' ? 'active' : ''}`} onClick={() => handleMenuClick('Status')}>
                         <Link to="/status">Status</Link>
                       </li>
-                    </>
-                  )}
+                    {/* </>
+                  )} */}
                   <li key='Debt' className={`list-group-item ${activeMenu === 'Debt' ? 'active' : ''}`} onClick={() => handleMenuClick('Debt')}>
                     <Link to="/debt">Debt</Link>
                   </li>
@@ -254,18 +265,17 @@ const App = () => {
               </Routes>
             </div>
 
-
             {showAddSnackForm && (
-          <div className="overlay-container">
-            <div className="overlay-content">
-              <button className="btn btn-link float-end" onClick={handleCloseForm}>
-                <FaTimes />
-              </button>
-              <h3>Add Snack</h3>
-              <AddSnackForm handleAddSnack={handleAddSnack} handleCloseForm={handleCloseForm} />
-            </div>
-          </div>
-        )}
+              <div className="overlay-container">
+                <div className="overlay-content">
+                  <button className="btn btn-link float-end" onClick={handleCloseForm}>
+                    <FaTimes />
+                  </button>
+                  <h3>Add Snack</h3>
+                  <AddSnackForm handleAddSnack={handleAddSnack} handleCloseForm={handleCloseForm} />
+                </div>
+              </div>
+            )}
           </>
         ) : (
           <Login onLogin={handleLogin} />

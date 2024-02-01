@@ -7,7 +7,7 @@ const AddSnackForm = ({ handleAddSnack, handleCloseForm }) => {
 
   const handleAddSnackClick = () => {
     if (!name || !price || !imageURL) {
-      alert('Please fill in all fields.');
+      alert('Admin bambi, fill in all fields.');
       return;
     }
 
