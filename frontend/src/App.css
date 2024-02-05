@@ -129,7 +129,7 @@ body.dark-mode {
 
 .profile-column {
   position: fixed;
-  top: 90px; /* Height of your header */
+  top: 90px; 
   right: 0;
   bottom: 0;
   background-color: #FF8C00;
@@ -139,12 +139,51 @@ body.dark-mode {
 
 .d-flex {
   display: flex;
-  overflow: hidden; /* Hides horizontal overflow for the body */
+  overflow: hidden; 
 }
 
 .scroll-container {
   overflow-y: auto;
-  flex-grow: 1; /* Allows SnackList to take up remaining space */
+  flex-grow: 1; 
 }
 
-/* ... (rest of your existing styles) */
+.deleteBtn{
+  border: 2px  solid #FF8C00;
+  background-color: none;
+}
+.deleteBtn:hover{
+  background-color: lightsalmon;
+  color: #fff;
+}
+
+.orderBtn{
+  border: 2px solid #157347;
+  background-color: none;
+}
+.orderBtn:hover{
+  background-color: #6FA800;
+  color: #fff;
+}
+
+.lists{
+  margin-left: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logoutBtn{
+  border: 2px solid #BB2D3B;
+}
+.logoutBtn:hover{
+  color: #fff;
+  background-color: #BB2D3B;
+}
+.scroll-container{
+  margin-left: 20px;
+}
+.profile-container{
+  background-color: #FFF;
+}
+.big-profile-container{
+  background-color: #FF8C00;
+}
