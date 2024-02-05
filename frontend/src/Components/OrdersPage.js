@@ -5,7 +5,7 @@ const OrdersPage = ({ orders, handleRemove }) => {
   const totalAmount = orders.reduce((total, order) => total + order.price * order.quantity, 0);
 
   return (
-    <div className="col-md-9">
+    <div className="col-md-9" style={{ minHeight: '100vh'}}>
       <h3>ORDERS</h3>
       {orders.map((order) => (
         <div key={order.id} className="card mb-3 shadow">

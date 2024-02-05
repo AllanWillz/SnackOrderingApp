@@ -28,7 +28,7 @@ const OrderHistory = () => {
   };
 
   return (
-    <div className="col-md-9">
+    <div className="col-md-9" style={{ minHeight: '100vh'}}>
       <h1>Order History Page</h1>
       <table className="table">
         <thead>
