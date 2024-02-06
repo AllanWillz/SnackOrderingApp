@@ -15,6 +15,7 @@ const OrderHistory = () => {
     { id: 11, name: 'Emma', email: 'emma@gmail.com', gender: 'Male', date: '2022-01-22', debt: 100 },
     { id: 12, name: 'Timo', email: 'timo@gmail.com', gender: 'Female', date: '2022-01-23', debt: 400 },
   ]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleDeleteOrder = (orderId) => {
     const orderIndex = orders.findIndex((order) => order.id === orderId);
@@ -27,9 +28,23 @@ const OrderHistory = () => {
     }
   };
 
+  const filteredOrders = orders.filter(order => 
+    order.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    order.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="col-md-9" style={{ minHeight: '100vh'}}>
       <h1>Order History Page</h1>
+      <div className="d-flex justify-content-end mb-3">
+        <input 
+          type="text" 
+          placeholder="Search by name or email"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="form-control mr-2"
+        />
+      </div>
       <table className="table">
         <thead>
           <tr>
@@ -44,7 +59,7 @@ const OrderHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {filteredOrders.map((order) => (
             <tr key={order.id}>
               <td>{order.id}</td>
               <td>
@@ -62,7 +77,7 @@ const OrderHistory = () => {
               <td>Shs.{order.debt}</td>
               <td>
                 <button
-                  className="btn btn-danger"
+                  className="btn historyDeleteBtn"
                   onClick={() => handleDeleteOrder(order.id)}
                 >
                   Delete

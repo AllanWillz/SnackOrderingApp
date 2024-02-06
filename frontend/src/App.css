@@ -181,9 +181,37 @@ body.dark-mode {
 .scroll-container{
   margin-left: 20px;
 }
-.profile-container{
-  background-color: #FFF;
-}
-.big-profile-container{
+
+
+/* .big-profile-container {
   background-color: #FF8C00;
+} */
+
+/* .big-profile-container {
+  background-image: url('https://cdn.stocksnap.io/img-thumbs/280h/FY5YYPG1LS.jpg');
+  background-size: cover;
+  background-position: center;
+  
+} */
+.big-profile-container {
+  position: relative;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.438), rgba(8, 8, 8, 0.568)), url('https://images.pexels.com/photos/3323687/pexels-photo-3323687.jpeg?auto=compress&cs=tinysrgb&w=600');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+
+.profile-container{
+  color: #000;
+  background-color: #fff;
+}
+
+.members-container{
+  background-color: #fff;
+  width: 450px;
+  margin-left: 50px;
+}
+
+.btnRemove{
+  border: 2px solid #BB2D3B;
 }
