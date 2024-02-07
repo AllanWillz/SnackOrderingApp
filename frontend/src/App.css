@@ -184,7 +184,28 @@ body.dark-mode {
 
 
 /* .big-profile-container {
-  background-color: #FF8C00;
+  
+}
+
+.dashboard-positioning{
+  position: fixed;
+  left: 0;
+  overflow: auto;
+
+}
+
+.profile-positioning{
+  position: fixed;
+  right: 0;
+  overflow-y: auto;
+
+}
+
+.snack-list-positioning{
+  flex: 1;
+
+  overflow-y: auto;
+
 } */
 
 /* .big-profile-container {
@@ -208,8 +229,8 @@ body.dark-mode {
 
 .members-container{
   background-color: #fff;
-  width: 450px;
-  margin-left: 50px;
+  /* width: 450px; */
+  /* margin-left: 50px; */
 }
 
 .btnRemove{

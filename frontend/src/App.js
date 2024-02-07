@@ -70,7 +70,9 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack, handleRemoveSnack }) 
   );
 
   return (
-    <div className="col-md-4 mt-4 scroll-container ">
+// SNACK LIST COLUMN
+
+    <div className="col-md-4 mt-4 snack-list-positioning scroll-container ">
       <div className="d-flex justify-content-center mb-3">
         <div className="input-group">
           <span className="input-group-text">
@@ -107,8 +109,10 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack, handleRemoveSnack }) 
   );
 };
 
+ //PROFILE COLUMN
+
 const ProfileSection = ({ showMoreMembers, handleToggleMembers, members }) => (
-  <div className="col-md-4 big-profile-container text-center mt-0 pt-4 align-items-center ">
+  <div className="col-md-4 big-profile-container profile-positioning text-center mt-0 pt-4 align-items-center ">
     <h3 style={{color: '#fff'}}>PROFILE</h3>
     <div className="profile-container shadow rounded text-center" style={{ marginLeft: '50px',  }}>
       <h4 className="mb-3">Person</h4>
@@ -170,14 +174,16 @@ const App = () => {
     { id: 1, image: image1, name: 'Samosa', price: 200 },
     { id: 2, image: image2, name: 'Cassava', price: 100 }, 
     { id: 5, image: 'https://media.istockphoto.com/id/496700274/photo/grilled-sausage-with-garlic-and-onions.jpg?s=612x612&w=0&k=20&c=j9lzghTPbD0WiMNgWEmw0-oFj-2E7JxgHGvkIioLSg8=', name: 'Sausage', price: 500 },
-    { id: 6, image: 'https://th.bing.com/th/id/OIP.9TJ1odB4tsnAQLc5w84EswHaEK?pid=ImgDet&w=191&h=107&c=7', name: 'Halfcakes', price: 200 },
+    { id: 6, image: 'https://i.ytimg.com/vi/jdOIK7HDS8U/hqdefault.jpg', name: 'Halfcakes', price: 200 },
     { id: 7, image: 'https://media.istockphoto.com/id/518643735/photo/yellow-ripe-bananas-sliced.jpg?s=612x612&w=0&k=20&c=J_uttY0d9sJohrTKhax-PjEoqePWliPo3hHUvPd7FTA=', name: 'Bananas', price: 1000 },
     { id: 8, image: 'https://th.bing.com/th/id/R.bd173464572972fe6bce85a636528730?rik=b39vMvae31ROmA&pid=ImgRaw&r=0', name: 'Rolex', price: 1000 },
     { id: 9, image: 'https://cdn.pixabay.com/photo/2016/07/01/19/43/pretzels-1491789_640.jpg', name: 'Bread', price: 500 },
     { id: 3, image: 'https://th.bing.com/th/id/OIP.mab-brQLKqD08BKV7y5FigHaG9?pid=ImgDet&w=191&h=179&c=7', name: 'Chapati', price: 500 },
     { id: 4, image: 'https://media.istockphoto.com/id/1223592731/photo/hard-boiled-chicken-eggs-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=QKNMsiLvHi5hjN-wkKhbZIRvUb-RNgppEki8WF8dgyI=', name: 'Eggs', price: 200 },
     { id: 10, image: 'https://www.judykats.com/wp-content/uploads/2021/10/kabalagala-in-2-lines-768x960.jpg', name: 'Pancakes', price: 100 },
-  
+    { id: 11, image: 'https://i.ytimg.com/vi/wd_76InSOaQ/hqdefault.jpg', name: 'Mandazi', price: 500 },
+    { id: 12, image: 'https://ug.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/57/58174/2.jpg?8652', name: 'Packed Milk', price: 500 },
+
   ]);
 
   const members = [
@@ -208,8 +214,7 @@ const App = () => {
   };
 
   const handleRemoveSnack = (snackId) => {
-    setShowConfirmation(true);
-    // Logic for removing the snack goes here
+    setShowConfirmation(true);  
   };
 
   const handleToggleMembers = () => {
@@ -261,7 +266,9 @@ const App = () => {
               </div>
             </div>
 
-            <div className="row mt-0 " >
+            {/* MY SIDE BAR / DASHBOARD COLUMN */}
+
+            <div className="row mt-0 dashboard-positioning" >
               <div className="col-md-1 mt-0"  style={{ background: '#FF8C00',  paddingLeft: '40px', width: 350 }}>
                 <div className='mt-4' style={{ height: 70, }}></div>
                 <h3 style={{color: '#fff'}}>Dashboard</h3>
@@ -343,7 +350,6 @@ const App = () => {
                 onCancel={() => setShowConfirmation(false)}
                 onConfirm={() => {
                   setShowConfirmation(false);
-                  // Logic for deleting the snack
                 }}
               />
             )}

@@ -12,7 +12,7 @@ const OrdersPage = ({ orders, handleRemove }) => {
           <div className="card-body d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center">
               <img
-                src={`.${order.image}`}
+                src={order.image}
                 alt={order.name}
                 className="rounded-circle me-3 order-image"
                 style={{ width: '90px', height: '90px' }}
