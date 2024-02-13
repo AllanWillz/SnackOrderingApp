@@ -65,9 +65,9 @@ const FinancialTracking = () => {
     const canvas = chartRef.current;
     const ctx = canvas.getContext('2d');
     
-    // Draw zigzag line
-    const x = [50, 100, 150, 200, 250]; // X-coordinates
-    const y = [150, 120, 160, 130, 150]; // Y-coordinates
+    // X and Y cordinates
+    const x = [50, 100, 150, 200, 250]; 
+    const y = [150, 120, 160, 130, 150]; 
     ctx.beginPath();
     ctx.moveTo(x[0], y[0]);
     for (let i = 1; i < x.length; i++) {
@@ -77,7 +77,7 @@ const FinancialTracking = () => {
     ctx.strokeStyle = 'red';
     ctx.stroke();
 
-    // Draw arrow at the end
+    // Arrow
     const arrowX = x[x.length - 1];
     const arrowY = y[y.length - 1];
     const arrowSize = 10;

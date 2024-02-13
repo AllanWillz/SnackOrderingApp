@@ -1,24 +1,34 @@
 import React, { useState } from 'react';
-import '../src/MealList';
-import './Login.css'
-// import logoImage from '../src/images/Odyssey-b-logo.png'
+import axios from 'axios'; 
+import './Login.css';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleLogin = () => {
-    if (password === confirmPassword) {
-      onLogin(email);
-    } else {
+  const handleLogin = async () => {
+    if (password !== confirmPassword) {
       alert("Passwords do not match. Please try again.");
+      return;
+    }
+
+    try {
+      const response = await axios.post('/login', { email, password });
+
+      if (response.data.success) {
+        onLogin(email);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error('Haaa Wrong Password or email. oli muyaaye Please toyiiya try again:', error);
+      alert('Haaa Wrong Password or email. oli muyaaye Please toyiiya try again');
     }
   };
 
   return (
     <div className="login-container">
-    {/* <img  src={logoImage} alt='odyssey logo' />  */}
       <div className="container mt-5">
         <div className="row justify-content-center">
           <div className="form-card col-md-8 col-lg-6">
