@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import './Login.css';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleLogin = async () => {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match. Please try again.");
-      return;
-    }
-
     try {
       const response = await axios.post('/login', { email, password });
 
       if (response.data.success) {
-        onLogin(email);
+        onLogin(email); // Assuming `onLogin` is a function to handle successful login in the parent component
+        // Redirect or navigate to another page upon successful login
       } else {
         alert(response.data.message);
       }
     } catch (error) {
-      console.error('Haaa Wrong Password or email. oli muyaaye Please toyiiya try again:', error);
-      alert('Haaa Wrong Password or email. oli muyaaye Please toyiiya try again');
+      console.error('Error logging in:', error);
+      alert('An error occurred while logging in. Please try again.');
     }
   };
 
@@ -55,17 +50,6 @@ const Login = ({ onLogin }) => {
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="confirmPassword" className="form-label">Confirm Password:</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="confirmPassword"
-                    placeholder="Confirm your password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
                 <button className="btn btn-primary" onClick={handleLogin}>Login</button>

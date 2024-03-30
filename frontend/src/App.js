@@ -94,6 +94,7 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack, handleRemoveSnack }) 
           Add Snack
         </button>
       </div>
+
       <div className="row">
         {filteredSnacks.map((snack) => (
           <div key={snack.id} className="col-md-6 mb-3">
@@ -105,6 +106,7 @@ const SnacksList = ({ snacks, handleOrder, handleAddSnack, handleRemoveSnack }) 
           </div>
         ))}
       </div>
+      
     </div>
   );
 };
@@ -170,6 +172,7 @@ const App = () => {
   const [showMoreMembers, setShowMoreMembers] = useState(false);
   const [showAddSnackForm, setShowAddSnackForm] = useState(false);
   const [activeMenu, setActiveMenu] = useState('Orders');
+
   const [snacks, setSnacks] = useState([
     { id: 1, image: image1, name: 'Samosa', price: 200 },
     { id: 2, image: image2, name: 'Cassava', price: 100 }, 
@@ -308,10 +311,11 @@ const App = () => {
                   </li>
                 </ul>
               </div>
-
+              
               <Routes>
                 <Route path="/" element={<Home
                   snacks={snacks}
+
                   handleOrder={handleOrder}
                   handleAddSnack={handleAddSnack}
                   handleRemove={handleRemove}
