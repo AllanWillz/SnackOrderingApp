@@ -15,12 +15,6 @@ import './App.css';
 import odysseyLogoImage from "../src/images/odyssey.png";
 import image1 from '../src/images/Samosa.jpg';
 import image2 from '../src/images/Cassava.jpg';
-// import image3 from '../src/images/Chapati.jpg';
-// import image4 from '../src/images/Samosa 2.jpg';
-// import image5 from '../src/images/Samosa 2.jpg';
-// import image6 from '../src/images/Samosa 2.jpg';
-// import image7 from '../src/images/Samosa 2.jpg';
-// import image8 from '../src/images/Samosa 2.jpg';
 
 import { FaTimes } from 'react-icons/fa';
 import { IoMdNotifications } from 'react-icons/io';
